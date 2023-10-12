@@ -70,23 +70,9 @@ namespace momorobots
                         int actionCount = 0;
                         while (success == false)
                         {
-                            try
-                            {
-                                IWebElement _btnNotDow = driver.FindElement(By.CssSelector("input[name='btnNotDow']"));
-                                if (_btnNotDow != null)
-                                {
-                                    _btnNotDow.Click();
-                                }
-                                IWebElement _alertCloseBtn = driver.FindElement(By.Id("alertCloseBtn"));
-                                if (_alertCloseBtn != null)
-                                {
-                                    _alertCloseBtn.Click();
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.Write("點擊暫緩出現錯誤, 請確認異常問題");
-                            }
+                            // 點擊暫緩
+                            ClickSuspended();
+                            // 執行次數
                             actionCount++;
                             // 進度條
                             labProcess.Text = string.Format("{0} / {1}", actionCount, totalCount);
@@ -108,6 +94,84 @@ namespace momorobots
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 執行暫緩一筆
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnActionStartOne_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (driver != null)
+                {
+                    // 設定進度條從0開啟
+                    progressBar.Value = 0;
+                    // 總數量
+                    int totalCount = 0;
+                    // 取得所有需要點擊暫緩的商品
+                    var totalProduct = driver.FindElement(By.CssSelector("input[name='btnNotDow']"));
+                    // 取得需要執行「暫緩」的總數量
+                    if (totalProduct != null)
+                        totalCount = 1;
+                    if (totalCount > 0)
+                    {
+                        // 執行狀態
+                        bool success = false;
+                        // 已經執行的數量
+                        int actionCount = 0;
+                        while (success == false)
+                        {
+                            // 點擊暫緩
+                            ClickSuspended();
+                            // 執行次數
+                            actionCount++;
+                            // 進度條
+                            labProcess.Text = string.Format("{0} / {1}", actionCount, totalCount);
+                            progressBar.Value = actionCount / totalCount;
+                            if (progressBar.Value == 100)
+                                success = true;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("無任何需要執行「暫緩」的商品");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("請先開啟瀏覽器");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 點擊暫緩
+        /// </summary>
+        protected void ClickSuspended()
+        {
+            try
+            {
+                if (driver != null)
+                {
+                    IWebElement _btnNotDow = driver.FindElement(By.CssSelector("input[name='btnNotDow']"));
+                    if (_btnNotDow != null)
+                        _btnNotDow.Click();
+                    IWebElement _alertCloseBtn = driver.FindElement(By.Id("alertCloseBtn"));
+                    if (_alertCloseBtn != null)
+                        _alertCloseBtn.Click();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("點擊暫緩出現錯誤, 請確認異常問題：" + ex.ToString());
             }
         }
     }
