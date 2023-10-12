@@ -58,10 +58,17 @@ namespace momorobots
                     // 總數量
                     int totalCount = 0;
                     // 取得所有需要點擊暫緩的商品
-                    var totalProducts = driver.FindElements(By.CssSelector("input[name='btnNotDow']"));
-                    // 取得需要執行「暫緩」的總數量
-                    if (totalProducts != null)
-                        totalCount = totalProducts.Count();
+                    try
+                    {
+                        var totalProduct = driver.FindElement(By.CssSelector("input[name='btnNotDow']"));
+                        // 取得需要執行「暫緩」的總數量
+                        if (totalProduct != null)
+                            totalCount = 1;
+                    }
+                    catch
+                    {
+                        totalCount = 0;
+                    }
                     if (totalCount > 0)
                     {
                         // 執行狀態
@@ -94,6 +101,7 @@ namespace momorobots
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
+                MessageBox.Show("發生錯誤, 請關閉並重新執行.");
             }
         }
 
@@ -113,10 +121,17 @@ namespace momorobots
                     // 總數量
                     int totalCount = 0;
                     // 取得所有需要點擊暫緩的商品
-                    var totalProduct = driver.FindElement(By.CssSelector("input[name='btnNotDow']"));
-                    // 取得需要執行「暫緩」的總數量
-                    if (totalProduct != null)
-                        totalCount = 1;
+                    try
+                    {
+                        var totalProduct = driver.FindElement(By.CssSelector("input[name='btnNotDow']"));
+                        // 取得需要執行「暫緩」的總數量
+                        if (totalProduct != null)
+                            totalCount = 1;
+                    }
+                    catch
+                    {
+                        totalCount = 0;
+                    }
                     if (totalCount > 0)
                     {
                         // 執行狀態
@@ -149,6 +164,7 @@ namespace momorobots
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
+                MessageBox.Show("發生錯誤, 請關閉並重新執行.");
             }
         }
 
