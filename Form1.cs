@@ -60,10 +60,10 @@ namespace momorobots
                     // 取得所有需要點擊暫緩的商品
                     try
                     {
-                        var totalProduct = driver.FindElement(By.CssSelector("input[name='btnNotDow']"));
+                        var totalProducts = driver.FindElements(By.CssSelector("input[name='btnNotDow']"));
                         // 取得需要執行「暫緩」的總數量
-                        if (totalProduct != null)
-                            totalCount = 1;
+                        if (totalProducts != null)
+                            totalCount = totalProducts.Count();
                     }
                     catch
                     {
@@ -84,7 +84,7 @@ namespace momorobots
                             // 進度條
                             labProcess.Text = string.Format("{0} / {1}", actionCount, totalCount);
                             progressBar.Value = actionCount / totalCount;
-                            if (progressBar.Value == 100)
+                            if (progressBar.Value == 1)
                                 success = true;
                         }
                     }
@@ -134,22 +134,13 @@ namespace momorobots
                     }
                     if (totalCount > 0)
                     {
-                        // 執行狀態
-                        bool success = false;
                         // 已經執行的數量
-                        int actionCount = 0;
-                        while (success == false)
-                        {
-                            // 點擊暫緩
-                            ClickSuspended();
-                            // 執行次數
-                            actionCount++;
-                            // 進度條
-                            labProcess.Text = string.Format("{0} / {1}", actionCount, totalCount);
-                            progressBar.Value = actionCount / totalCount;
-                            if (progressBar.Value == 100)
-                                success = true;
-                        }
+                        int actionCount = 1;
+                        // 點擊暫緩
+                        ClickSuspended();
+                        // 進度條
+                        labProcess.Text = string.Format("{0} / {1}", actionCount, totalCount);
+                        progressBar.Value = actionCount / totalCount;
                     }
                     else
                     {
