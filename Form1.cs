@@ -85,7 +85,10 @@ namespace momorobots
                             labProcess.Text = string.Format("{0} / {1}", actionCount, totalCount);
                             progressBar.Value = actionCount / totalCount;
                             if (progressBar.Value == 1)
+                            {
                                 success = true;
+                                MessageBox.Show("點擊「暫緩排程」完成");
+                            }
                         }
                     }
                     else
@@ -141,6 +144,7 @@ namespace momorobots
                         // 進度條
                         labProcess.Text = string.Format("{0} / {1}", actionCount, totalCount);
                         progressBar.Value = actionCount / totalCount;
+                        MessageBox.Show("點擊「暫緩一筆」完成");
                     }
                     else
                     {
