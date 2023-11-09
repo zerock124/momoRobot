@@ -10,6 +10,7 @@ namespace momorobots
         private static IWebDriver? driver;
         public Form1()
         {
+            // ªì©l¤Æ
             InitializeComponent();
         }
 
