@@ -1,5 +1,6 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
 namespace momorobots
@@ -188,6 +189,63 @@ namespace momorobots
             catch (Exception ex)
             {
                 Console.WriteLine("點擊暫緩出現錯誤, 請確認異常問題：" + ex.ToString());
+            }
+        }
+
+        private void btn_GetCoupon_Click(object sender, EventArgs e)
+        {
+            if (driver != null)
+            {
+                int step = 1;
+                while (step != 4)
+                {
+                    try
+                    {
+                        switch (step)
+                        {
+                            case 1:
+                                // 滿3999送2000
+                                IWebElement _promoActivity0_2 = driver.FindElement(By.Id("promoActivity0_2"));
+                                _promoActivity0_2.Click();
+                                IWebElement _promoActivity0_2_swal2_confirm_swal2_styled = driver.FindElement(By.CssSelector(".swal2-confirm.swal2-styled"));
+                                IWebElement _swal2_title = driver.FindElement(By.Id("swal2-title"));
+                                if (_swal2_title.Text.Contains("額滿") == false)
+                                {
+                                    step = 2;
+                                }
+                                _promoActivity0_2_swal2_confirm_swal2_styled.Click();
+                                break;
+                            case 2:
+                                // 滿1990送1000
+                                IWebElement _promoActivity0_1 = driver.FindElement(By.Id("promoActivity0_1"));
+                                _promoActivity0_1.Click();
+                                IWebElement _promoActivity0_1_swal2_confirm_swal2_styled = driver.FindElement(By.CssSelector(".swal2-confirm.swal2-styled"));
+                                IWebElement _swal2_title_1 = driver.FindElement(By.Id("swal2-title"));
+                                if (_swal2_title_1.Text.Contains("額滿") == false)
+                                {
+                                    step = 3;
+                                }
+                                _promoActivity0_1_swal2_confirm_swal2_styled.Click();
+                                break;
+                            case 3:
+                                // 滿990送500
+                                IWebElement _promoActivity0_0 = driver.FindElement(By.Id("promoActivity0_0"));
+                                _promoActivity0_0.Click();
+                                IWebElement _promoActivity0_0_swal2_confirm_swal2_styled = driver.FindElement(By.CssSelector(".swal2-confirm.swal2-styled"));
+                                IWebElement _swal2_title_2 = driver.FindElement(By.Id("swal2-title"));
+                                if (_swal2_title_2.Text.Contains("額滿") == false)
+                                {
+                                    step = 4;
+                                }
+                                _promoActivity0_0_swal2_confirm_swal2_styled.Click();
+                                break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("點擊暫緩出現錯誤, 請確認異常問題：" + ex.ToString());
+                    }
+                }
             }
         }
     }
