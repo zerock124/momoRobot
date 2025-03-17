@@ -174,12 +174,32 @@ namespace momorobots
             {
                 if (driver != null)
                 {
-                    IWebElement _btnNotDow = driver.FindElement(By.CssSelector("input[name='btnNotDow']"));
-                    if (_btnNotDow != null)
-                        _btnNotDow.Click();
-                    IWebElement _alertCloseBtn = driver.FindElement(By.Id("alertCloseBtn"));
-                    if (_alertCloseBtn != null)
-                        _alertCloseBtn.Click();
+                    int step = 0;
+                    while (step < 2)
+                    {
+                        switch (step)
+                        {
+                            case 0:
+                                IWebElement _btnNotDow = driver.FindElement(By.CssSelector("input[name='btnNotDow']"));
+                                if (_btnNotDow != null)
+                                {
+                                    _btnNotDow.Click();
+                                    step = 1;
+                                }
+                                break;
+                            case 1:
+                                IWebElement _alertCloseBtn = driver.FindElement(By.Id("alertCloseBtn"));
+                                if (_alertCloseBtn != null)
+                                {
+                                    _alertCloseBtn.Click();
+                                    step = 2;
+                                }
+                                break;
+                            default:
+                                step = 2;
+                                break;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
