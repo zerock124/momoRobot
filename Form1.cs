@@ -180,19 +180,35 @@ namespace momorobots
                         switch (step)
                         {
                             case 0:
-                                IWebElement _btnNotDow = driver.FindElement(By.CssSelector("input[name='btnNotDow']"));
-                                if (_btnNotDow != null)
+                                try
                                 {
-                                    _btnNotDow.Click();
-                                    step = 1;
+                                    IWebElement _btnNotDow = driver.FindElement(By.CssSelector("input[name='btnNotDow']"));
+                                    if (_btnNotDow != null)
+                                    {
+                                        _btnNotDow.Click();
+                                        step = 1;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine("找不到[暫緩]按鈕：" + ex.ToString());
+                                    step = 0;
                                 }
                                 break;
                             case 1:
-                                IWebElement _alertCloseBtn = driver.FindElement(By.Id("alertCloseBtn"));
-                                if (_alertCloseBtn != null)
+                                try
                                 {
-                                    _alertCloseBtn.Click();
-                                    step = 2;
+                                    IWebElement _alertCloseBtn = driver.FindElement(By.Id("alertCloseBtn"));
+                                    if (_alertCloseBtn != null)
+                                    {
+                                        _alertCloseBtn.Click();
+                                        step = 2;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine("找不到[關閉]按鈕：" + ex.ToString());
+                                    step = 1;
                                 }
                                 break;
                             default:
